@@ -1,6 +1,11 @@
+"""
+Test and logging script for the churn_library.py script
+
+Author: Eugenio
+Date: Feb, 2022
+"""
 import os
 import logging
-import churn_library_solution as cls
 
 logging.basicConfig(
     filename='./logs/churn_library.log',
@@ -16,7 +21,7 @@ def test_import(import_data):
 		df = import_data("./data/bank_data.csv")
 		logging.info("Testing import_data: SUCCESS")
 	except FileNotFoundError as err:
-		logging.error("Testing import_eda: The file wasn't found")
+		logging.error("Testing import_data: The file wasn't found")
 		raise err
 
 	try:
@@ -27,10 +32,48 @@ def test_import(import_data):
 		raise err
 
 
-def test_eda(perform_eda):
+def test_eda(import_data, perform_eda):
 	'''
 	test perform eda function
 	'''
+	try:
+		df = import_data("./data/bank_data.csv")
+		logging.info("Testing import_data: SUCCESS")
+	except FileNotFoundError as err:
+		logging.error("Testing import_data: The file wasn't found")
+		raise err
+	
+	perform_eda(df, features_to_plot = ['Customer_Age'])
+	
+	try:
+		assert os.path.filexists('./logging/eda_report.txt')
+	except AssertionError as err:
+		logging.error("Testing perform_eda: Report was not generated as expected. Something went wrong")
+		raise err
+
+	try:
+		assert os.path.filexists('./images/df_corr_heatmap.png')
+	except AssertionError as err:
+		logging.error("Testing perform_eda: Correlation heatmap was not generated as expected. Something went wrong")
+		raise err
+
+	try: 
+		assert os.path.filexists('./images/customer_age_bar.png')
+	except AssertionError as err:
+		logging.error("Testing perform_eda: Bar plot was not generated as expected. Something went wrong")
+		raise err
+	
+	try: 
+		assert os.path.filexists('./images/customer_age_hist.png')
+	except AssertionError as err:
+		logging.error("Testing perform_eda: Hist plot was not generated as expected. Something went wrong")
+		raise err
+
+	try: 
+		assert os.path.filexists('./images/customer_age_dist.png')
+	except AssertionError as err:
+		logging.error("Testing perform_eda: Dist plot was not generated as expected. Something went wrong")
+		raise err
 
 
 def test_encoder_helper(encoder_helper):
