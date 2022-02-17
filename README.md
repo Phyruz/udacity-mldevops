@@ -1,4 +1,4 @@
-# Udacity ML DevOps Nanodegree
+# Udacity ML DevOps Engineer Nanodegree
 
 This repositories contains all the project related to the [ML DevOps Engineer Nanodegree](https://www.udacity.com/course/machine-learning-dev-ops-engineer-nanodegree--nd0821) offered by Udacity.
 
