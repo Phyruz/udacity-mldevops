@@ -100,11 +100,19 @@ def eda_plot(
 
     if kind == "hist":
         df[feature].hist(**kwargs)
+        plt.title(f"Hist Plot - {feature}")
+        plt.xlabel("Value")
+        plt.ylabel("Counts")
     elif kind == "bar":
         df[feature].value_counts('normalise').plot(kind='bar', **kwargs)
+        plt.title(f"Bar Plot - {feature}")
+        plt.xlabel("Value")
+        plt.ylabel("Counts (Normalised)")
     elif kind == "dist":
         try:
             sns.distplot(df[feature], **kwargs)
+            plt.xlabel("Value")
+            plt.ylabel("Density")
         except ValueError:
             logging.error(
                 f'Feature {feature} is categorical. A distribution plot cannot be generated')
@@ -460,6 +468,7 @@ if __name__ == '__main__':
         output_pth='./images')
     y = df['Churn']
     X = pd.DataFrame()
+    """
     cat_columns = [
         'Gender',
         'Education_Level',
@@ -494,3 +503,4 @@ if __name__ == '__main__':
     X_train, X_test, y_train, y_test = perform_feature_engineering(
         X, y, test_size=0.3, random_state=42)
     train_models(X_train, X_test, y_train, y_test)
+    """
