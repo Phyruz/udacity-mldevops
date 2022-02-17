@@ -47,7 +47,7 @@ def import_data(pth: str) -> DataFrame:
     return df
 
 
-def df_report(df: DataFrame, pth: str = "./logging/eda_report.txt") -> None:
+def df_report(df: DataFrame, pth: str = "./logs/eda_report.txt") -> None:
     """
     Log most important statistics and information of a DataFrame
     input
@@ -385,10 +385,10 @@ def train_models(X_train: DataFrame,
     lrc = LogisticRegression()
 
     param_grid = {
-        'n_estimators': [200]  # , 500],
-        # 'max_features': ['auto', 'sqrt'],
-        # 'max_depth' : [4,5,100],
-        # 'criterion' :['gini', 'entropy']
+        'n_estimators': [200, 500],
+        'max_features': ['auto', 'sqrt'],
+        'max_depth' : [4,5,100],
+        'criterion' :['gini', 'entropy']
     }
 
     print('Random Forest fit started...')
@@ -434,12 +434,12 @@ def train_models(X_train: DataFrame,
 
     # Treen Explainer
     print('Tree Explainer is being generated and saved.')
-    #ax = plt.gca()
-    #explainer = shap.TreeExplainer(cv_rfc.best_estimator_)
-    #shap_values = explainer.shap_values(X_test)
-    #shap.summary_plot(shap_values, X_test, plot_type="bar", ax=ax)
-    # plt.savefig('./images/rf_shap_explainer.png')
-    # plt.close()
+    fig = plt.figure(figsize=(15, 12))
+    explainer = shap.TreeExplainer(cv_rfc.best_estimator_)
+    shap_values = explainer.shap_values(X_test)
+    shap.summary_plot(shap_values, X_test, plot_type="bar",show=False)
+    plt.savefig('./images/rf_shap_explainer.png')
+    plt.close()
 
     # Feature Importance
     print('Feature importance plot is being generated and saved.')
@@ -457,7 +457,7 @@ if __name__ == '__main__':
             'Customer_Age',
             'Marital_Status',
             'Total_Trans_Ct'],
-        output_pth='./images/eda')
+        output_pth='./images')
     y = df['Churn']
     X = pd.DataFrame()
     cat_columns = [
@@ -466,22 +466,6 @@ if __name__ == '__main__':
         'Marital_Status',
         'Income_Category',
         'Card_Category'
-    ]
-    quant_columns = [
-        'Customer_Age',
-        'Dependent_count',
-        'Months_on_book',
-        'Total_Relationship_Count',
-        'Months_Inactive_12_mon',
-        'Contacts_Count_12_mon',
-        'Credit_Limit',
-        'Total_Revolving_Bal',
-        'Avg_Open_To_Buy',
-        'Total_Amt_Chng_Q4_Q1',
-        'Total_Trans_Amt',
-        'Total_Trans_Ct',
-        'Total_Ct_Chng_Q4_Q1',
-        'Avg_Utilization_Ratio'
     ]
 
     df = encoder_helper(df, cat_columns, 'Churn', 'Churn')
