@@ -468,7 +468,7 @@ if __name__ == '__main__':
         output_pth='./images')
     y = df['Churn']
     X = pd.DataFrame()
-    """
+    
     cat_columns = [
         'Gender',
         'Education_Level',
@@ -503,4 +503,4 @@ if __name__ == '__main__':
     X_train, X_test, y_train, y_test = perform_feature_engineering(
         X, y, test_size=0.3, random_state=42)
     train_models(X_train, X_test, y_train, y_test)
-    """
+    
