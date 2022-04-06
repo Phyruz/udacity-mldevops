@@ -7,8 +7,12 @@ def pytest_addoption(parser):
     parser.addoption("--csv", action="store")
     parser.addoption("--ref", action="store")
     parser.addoption("--kl_threshold", action="store")
+    parser.addoption("--min_rows", action="store")
+    parser.addoption("--max_rows", action="store")
     parser.addoption("--min_price", action="store")
     parser.addoption("--max_price", action="store")
+    parser.addoption("--min_nights", action="store")
+    parser.addoption("--max_nights", action="store")
 
 
 @pytest.fixture(scope='session')
@@ -53,6 +57,24 @@ def kl_threshold(request):
     return float(kl_threshold)
 
 @pytest.fixture(scope='session')
+def min_rows(request):
+    min_rows = request.config.option.min_rows
+
+    if min_rows is None:
+        pytest.fail("You must provide a lower boundary for the number of rows")
+
+    return int(min_rows)
+
+@pytest.fixture(scope='session')
+def max_rows(request):
+    max_rows = request.config.option.max_rows
+
+    if max_rows is None:
+        pytest.fail("You must provide a lower boundary for the number of rows")
+
+    return int(max_rows)
+
+@pytest.fixture(scope='session')
 def min_price(request):
     min_price = request.config.option.min_price
 
@@ -69,3 +91,21 @@ def max_price(request):
         pytest.fail("You must provide max_price")
 
     return float(max_price)
+
+@pytest.fixture(scope='session')
+def min_nights(request):
+    min_nights = request.config.option.min_nights
+
+    if min_nights is None:
+        pytest.fail("You must provide min_nights")
+
+    return int(min_nights)
+
+@pytest.fixture(scope='session')
+def max_nights(request):
+    max_nights = request.config.option.max_nights
+
+    if max_nights is None:
+        pytest.fail("You must provide max_nights")
+
+    return int(max_nights)

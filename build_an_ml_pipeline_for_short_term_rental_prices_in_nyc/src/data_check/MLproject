@@ -17,6 +17,14 @@ entry_points:
         description: Threshold for the KL divergence test on the neighborhood group column
         type: float
 
+      min_rows:
+        description: Threshold for the min number of rows to be accepted for the given dataset 
+        type: int
+
+      max_rows:
+        description: Threshold for the max number of rows to be accepted for the given dataset
+        type: int
+
       min_price:
         description: Minimum accepted price
         type: float
@@ -25,4 +33,13 @@ entry_points:
         description: Maximum accepted price
         type: float
 
-    command: "pytest . -vv --csv {csv} --ref {ref} --kl_threshold {kl_threshold} --min_price {min_price} --max_price {max_price}"
+      min_nights:
+        description: Lower bound of minimum nights accepted
+        type: int
+
+      max_nights:
+        description: Higher bound of minimum nights accepted
+        type: int
+
+    command: "pytest . -vv --csv {csv} --ref {ref} --kl_threshold {kl_threshold} --min_rows {min_rows} --max_rows {max_rows} \ 
+              --min_price {min_price} --max_price {max_price} --min_nights {min_nights} --max_nights {max_nights}"

@@ -68,16 +68,34 @@ def go(config: DictConfig):
             )
 
         if "data_check" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            _ = mlflow.run(
+                os.path.join(root_dir, "src", "data_check"),
+                "main",
+                parameters={
+                    "csv": "clean_sample.csv:latest",
+                    "ref": "clean_sample.csv:reference",
+                    "kl_threshold":  config["data_check"]["kl_threshold"],
+                    "min_rows": config["data_check"]["min_rows"],
+                    "max_rows": config["data_check"]["max_rows"],
+                    "min_price": config["etl"]["min_price"],
+                    "max_price": config["etl"]["max_price"],
+                    "min_nights": config["etl"]["min_nights"],
+                    "max_nights": config["etl"]["max_nights"]
+                },
+            )
 
         if "data_split" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            # Extract and segregate the test set
+            _ = mlflow.run(
+                f"{config['main']['components_repository']}/train_val_test_split",
+                "main",
+                parameters={
+                    "input": "clean_sample.csv:latest",
+                    "test_size": config["modeling"]["test_size"],
+                    "random_seed": config["modeling"]["random_seed"],
+                    "stratify_by": config["modeling"]["stratify_by"]
+                },
+            )
 
         if "train_random_forest" in active_steps:
 
