@@ -3,6 +3,10 @@
 Project Title:
 **Build an ML Pipeline** of ML DevOps Engineer Nanodegree Udacity course.
  
+## Useful Links
+- [GitHub link](https://github.com/Phyruz/build_an_ml_pipeline_for_short_term_rental_prices_in_nyc)
+- [Weight & Biases project link](https://wandb.ai/phyruz/nyc_airbnb)
+
 ## Project Description
 In this project, I am implementing a re-usable end-to-end ML pipeline within the [Machine Learning DevOps Engineer Nanodegree](https://www.udacity.com/course/machine-learning-dev-ops-engineer-nanodegree--nd0821) offered by Udacity. 
 
