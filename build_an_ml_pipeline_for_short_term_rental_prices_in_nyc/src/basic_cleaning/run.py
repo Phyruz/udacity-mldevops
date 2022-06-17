@@ -26,18 +26,20 @@ def go(args):
 
     ## Cleaning steps
     # Drop price outliers
-    logger.info(f"Cleaning step 1: retain items with price value \
-    between {args.min_price} and {args.max_price} dollars")
+    logger.info(f"Cleaning step 1: retain items with price value between {args.min_price} and {args.max_price} dollars")
     df = df[df["price"].between(args.min_price, args.max_price)]
 
     # Drop minimum_nights outliers
-    logger.info(f"Cleaning step 2: retain items with minimum_nights value \
-    between {args.min_nights} and {args.max_nights} dollars")
+    logger.info(f"Cleaning step 2: retain items with minimum_nights value between {args.min_nights} and {args.max_nights}")
     df = df[df["minimum_nights"].between(args.min_nights, args.max_nights)]
 
     # Convert last_review to datetime
     logger.info("Cleaning step 3: convert last_review to datetime")
     df['last_review'] = pd.to_datetime(df['last_review'])
+
+    # Latitude/Longitude boundaries
+    logger.info("Cleaning step 4: limiting longitude and latitude to NYC area")
+    df = df[df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)]
 
     # Save file as CSV and load W&B artifact
     logger.info(f"Saving clean sample in local directory")
