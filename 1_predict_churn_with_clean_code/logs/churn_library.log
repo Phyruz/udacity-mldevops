@@ -1,0 +1,10 @@
+root - INFO - Testing import_data: SUCCESS
+root - INFO - Testing perform_eda: SUCCESS - EDA report was generated
+root - INFO - Testing perform_eda: SUCCESS - Correlation heatmap was generated
+root - INFO - Testing perform_eda: SUCCESS - Bar plot was generated
+root - INFO - Testing perform_eda: SUCCESS - Hist plot was generated
+root - INFO - Testing perform_eda: SUCCESS - Dist plot was generated
+root - INFO - Testing encoder_helper: SUCCESS - dataframe was encoded as expected
+root - INFO - Testing perform_feature_engineering: SUCCESS - All train and test datasets have at least one row
+root - INFO - Testing perform_feature_engineering: SUCCESS - No rows were lost in splitting between train and test datasets
+root - INFO - Testing perform_feature_engineering: SUCCESS - Dataset was correctly split in training and testing datasets
